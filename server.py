@@ -12,7 +12,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor, IsolationForest
  
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins=["https://133haseeb.github.io"])
  
 @app.route('/analyze', methods=['POST'])
 def analyze():
