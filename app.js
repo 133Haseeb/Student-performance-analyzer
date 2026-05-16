@@ -1,4 +1,4 @@
-const API_URL = 'https://student-performance-analyzer.onrender.com/analyze';
+const API_URL = 'https://student-performance-analyzer-bp1k.onrender.com/analyze';
 
 const fileInput = document.getElementById('fileInput');
 const fileInfo = document.getElementById('fileInfo');
