@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Performance Analyzer</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-inner">
+      <div class="header-title">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>
+        </svg>
+        <span>Student Performance Analyzer</span>
+      </div>
+      <p class="header-sub">Upload a student CSV file to analyze performance and detect suspicious results</p>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <section class="upload-section" id="uploadSection">
+      <div class="upload-box" id="uploadBox">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
+        </svg>
+        <p class="upload-title">Drop your CSV file here</p>
+        <p class="upload-sub">or click to browse</p>
+        <input type="file" id="fileInput" accept=".csv" />
+      </div>
+      <div class="file-info" id="fileInfo"></div>
+      <button class="btn-analyze" id="analyzeBtn" disabled>Analyze</button>
+    </section>
+
+    <div id="loader" class="loader hidden">
+      <div class="spinner"></div>
+      <p>Running ML analysis, please wait...</p>
+    </div>
+
+    <div id="dashboard" class="hidden">
+
+      <section class="summary-cards" id="summaryCards"></section>
+
+      <div class="two-col">
+
+        <section class="card">
+          <h2 class="section-title">Actual vs Predicted Marks</h2>
+          <p class="section-sub">Sample of 10 students — AI predicted vs reported scores</p>
+          <div class="chart-wrap">
+            <canvas id="barChart"></canvas>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2 class="section-title">Score Difference Distribution</h2>
+          <p class="section-sub">How far predicted marks deviate from actual</p>
+          <div class="chart-wrap">
+            <canvas id="diffChart"></canvas>
+          </div>
+        </section>
+
+      </div>
+
+      <section class="card">
+        <h2 class="section-title">Model Evaluation Metrics</h2>
+        <p class="section-sub">Classification performance comparison between models</p>
+        <div class="chart-wrap chart-wrap--short">
+          <canvas id="metricsChart"></canvas>
+        </div>
+        <div class="metrics-table-wrap">
+          <table class="metrics-table" id="metricsTable"></table>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="suspicious-header">
+          <div>
+            <h2 class="section-title">Suspicious Students</h2>
+            <p class="section-sub">Students where AI score differs by 15+ marks from reported score</p>
+          </div>
+          <span class="badge-danger" id="suspiciousCount"></span>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table" id="suspiciousTable">
+            <thead>
+              <tr>
+                <th>Student ID</th>
+                <th>Reported Score</th>
+                <th>AI Predicted</th>
+                <th>Difference</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="suspiciousBody"></tbody>
+          </table>
+        </div>
+        <p class="no-suspicious hidden" id="noSuspicious">No suspicious students found.</p>
+      </section>
+
+      <div class="regression-stats" id="regressionStats"></div>
+
+      <button class="btn-reset" id="resetBtn">Upload Another File</button>
+
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <p>Student Performance Analyzer &mdash; Powered by Machine Learning</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
